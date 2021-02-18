@@ -1,11 +1,34 @@
-version: "3"
+#postgres server is visible as pgsql-server in pgadmin panel
+
+version: "3.5"
 services:
   postgres:
     container_name: postgres_playr
-    image: "postgres"
-    ports:
-      - "5432:5432"
+    image: postgres
     environment:
       POSTGRES_USER: "test"
       POSTGRES_PASSWORD: "test"
       POSTGRES_DB: "playr"
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin_playr
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 123@test.pl
+      PGADMIN_DEFAULT_PASSWORD: '123'
+    volumes:
+       - pgadmin:/root/.pgadmin
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    links:
+      - "postgres:pgsql-server"
+
+volumes:
+    postgres:
+    pgadmin:
