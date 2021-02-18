@@ -2,13 +2,13 @@ import { Controller, Body, Get, Delete, Post, UseGuards, Param } from "@nestjs/c
 import { UsersService } from "./users.service"
 import { Users } from "./users.entity"
 
-@Controller("users")
+@Controller("auth")
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
     @Post()
-    create(@Body() createQuiz: any): Promise<Users> {
-        return this.usersService.create(createQuiz)
+    create(@Body() authRegister: any): Promise<Users> {
+        return this.usersService.create(authRegister)
     }
 
     @Get()
