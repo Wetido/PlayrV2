@@ -1,12 +1,7 @@
 <template>
-  <form @submit="checkForm">
+  <div>
     <label for="newLogin">New login</label>
-    <input
-      name="newLogin"
-      placeholder="for example: doglover12"
-      v-model="newLogin"
-      type="text"
-    />
+    <input name="newLogin" placeholder="for example: doglover12" v-model="newLogin" type="text" />
     <label for="newPassword">New Password</label>
     <input
       name="newPassword"
@@ -14,8 +9,8 @@
       v-model="newPassword"
       type="password"
     />
-    <button type="submit">Sign up</button>
-  </form>
+    <button @click="handleFormSubmit()" type="submit">Sign up</button>
+  </div>
 </template>
 
 <script>
@@ -28,7 +23,7 @@ export default {
     };
   },
   methods: {
-    handleFormSubmit() {
+    handleFormSubmit: function handleFormSubmit() {
       //just console.log for now to see is it working
       console.log(this.newLogin);
       console.log(this.newPassword);
@@ -38,7 +33,9 @@ export default {
 </script>
 
 <style scoped>
-input, label, button {
+input,
+label,
+button {
   display: block;
   margin: 0 auto;
 }
