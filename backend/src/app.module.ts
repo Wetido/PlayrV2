@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from "src/users/users.module";
-import { join } from "path"
+import { UsersModule } from 'src/users/users.module';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -12,13 +12,11 @@ import { join } from "path"
       username: 'test',
       password: 'test',
       database: 'playr',
-      entities: [join(__dirname, "./**/*.entity{.ts,.js}")],
+      entities: [join(__dirname, './**/*.entity{.ts,.js}')],
       synchronize: true,
       autoLoadEntities: true,
     }),
-    UsersModule
+    UsersModule,
   ],
-
-
 })
 export class AppModule {}
