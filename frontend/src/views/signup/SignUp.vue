@@ -7,7 +7,6 @@
       v-model="newLogin"
       type="text"
     />
-    <br />
     <label for="newPassword">New Password</label>
     <input
       name="newPassword"
@@ -15,7 +14,6 @@
       v-model="newPassword"
       type="password"
     />
-    <br />
     <button type="submit">Sign up</button>
   </form>
 </template>
@@ -39,4 +37,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+input, label, button {
+  display: block;
+  margin: 0 auto;
+}
+</style>
