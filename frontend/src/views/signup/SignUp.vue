@@ -1,33 +1,46 @@
 <template>
   <div>
-    <label for="newLogin">New login</label>
-    <input name="newLogin" placeholder="for example: doglover12" v-model="newLogin" type="text" />
-    <label for="newPassword">New Password</label>
-    <input
-      name="newPassword"
-      placeholder="Don't use the same password on multiple websites"
-      v-model="newPassword"
-      type="password"
-    />
-    <button @click="handleFormSubmit()" type="submit">Sign up</button>
+    <label>Login</label>
+    <input placeholder="Tu wpisz login" v-model="login" type="text" />
+    <label>Hasło</label>
+    <input placeholder="Tu wpisz hasło" v-model="password" type="password"/>
+    <label id="wrong-password">Podales błędne dane</label>
+    <button @click="handleFormSubmit()" type="submit">Zarejestruj się</button>
   </div>
 </template>
 
 <script>
+import { isEmpty } from '../../scripts/Core';
+
 export default {
   name: "SignUp",
   data() {
     return {
-      newLogin: "",
-      newPassword: ""
+      login: "",
+      password: ""
     };
   },
   methods: {
-    handleFormSubmit: function handleFormSubmit() {
-      //just console.log for now to see is it working
-      console.log(this.newLogin);
-      console.log(this.newPassword);
+    handleChangeInputs() {
+      if(!isEmpty(this.login) || !isEmpty(this.password)){
+        document.getElementById('wrong-password').style.visibility = 'visible';
+      }else{
+        document.getElementById('wrong-password').style.visibility = 'hidden';
+      }
+    },
+
+    handleFormSubmit(){
+      //CHECK DATA AND DO STH
     }
+  },
+
+  watch: {
+    login(){
+      this.handleChangeInputs()
+    },
+    password(){
+      this.handleChangeInputs()
+    },
   }
 };
 </script>
@@ -38,5 +51,9 @@ label,
 button {
   display: block;
   margin: 0 auto;
+}
+
+#wrong-password{
+  visibility: hidden;
 }
 </style>
