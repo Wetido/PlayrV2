@@ -44,8 +44,20 @@ body {
 }
 .left-column {
   background-color: #fff;
+  position: relative;
 }
 .right-column {
   background-color: #f3f3f3;
+}
+.default-button {
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 7px 5px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 0px 7px 5px 0px rgba(50, 50, 50, 0.75);
+  box-shadow: 0px 2px 2px 0px rgba(50, 50, 50, 0.75);
+}
+.default-button:active {
+  box-shadow: 0px 1px 1px 0px rgba(50, 50, 50, 0.75);
 }
 </style>
