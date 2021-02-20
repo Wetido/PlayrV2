@@ -5,7 +5,7 @@
       <router-link to="/about">About</router-link> |
       <router-link to="/signup">Sign up</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -30,4 +30,12 @@
     }
   }
 }
+.grid-container {
+  display: grid;
+  grid-template-columns: 0.4fr 1.6fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  height: 100vh;
+}
+
 </style>

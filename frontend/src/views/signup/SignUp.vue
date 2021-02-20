@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <label>Login</label>
-    <input placeholder="Tu wpisz login" v-model="login" type="text" />
-    <label>Hasło</label>
-    <input placeholder="Tu wpisz hasło" v-model="password" type="password" />
-    <label v-show="isWrongDataProvided">Wypełnij wszystkie pola!</label>
-    <button @click="handleFormSubmit()" type="submit">Zarejestruj się</button>
+  <div class="grid-container">
+    <nav class="left-column">
+      <label>Login</label>
+      <input placeholder="Tu wpisz login" v-model="login" type="text" />
+      <label>Hasło</label>
+      <input placeholder="Tu wpisz hasło" v-model="password" type="password" />
+      <label v-show="isWrongDataProvided">Wypełnij wszystkie pola!</label>
+      <button @click="handleFormSubmit()" type="submit">Zarejestruj się</button>
+    </nav>
   </div>
 </template>
 
@@ -51,14 +53,4 @@ export default {
 </script>
 
 <style scoped>
-input,
-label,
-button {
-  display: block;
-  margin: 0 auto;
-}
-
-#wrong-password {
-  visibility: hidden;
-}
 </style>
