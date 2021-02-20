@@ -1,13 +1,30 @@
 <template>
   <div class="grid-container">
-    <nav class="left-column">
-      <label>Login</label>
-      <input placeholder="Tu wpisz login" v-model="login" type="text" />
-      <label>Hasło</label>
-      <input placeholder="Tu wpisz hasło" v-model="password" type="password" />
-      <label v-show="isWrongDataProvided">Wypełnij wszystkie pola!</label>
-      <button @click="handleFormSubmit()" type="submit">Zarejestruj się</button>
-    </nav>
+    <div class="left-column">
+      <div class="form">
+        <label class="form-label">Login:</label>
+        <input
+          class="form-input"
+          placeholder="Tu wpisz login"
+          v-model="login"
+          type="text"
+        />
+        <label class="form-label">Hasło:</label>
+        <input
+          class="form-input"
+          placeholder="Tu wpisz hasło"
+          v-model="password"
+          type="password"
+        />
+        <label class="wrongData-alert" v-show="isWrongDataProvided"
+          >Wypełnij wszystkie pola!</label
+        >
+        <button @click="handleFormSubmit()" type="submit">
+          Zarejestruj się
+        </button>
+      </div>
+    </div>
+    <div class="right-column"></div>
   </div>
 </template>
 
@@ -53,4 +70,25 @@ export default {
 </script>
 
 <style scoped>
+@media only screen and (min-width: 800px) {
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 75%;
+    margin: 2em;
+  }
+}
+.form-label {
+  color: #8d8d8d;
+  font-size: 12px;
+  margin-right: auto;
+}
+.form-input {
+  width: 100%;
+}
+.wrongData-alert {
+  color: #c96f6f;
+  font-size: 14px;
+}
 </style>
