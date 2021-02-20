@@ -3,12 +3,12 @@
 version: "3.5"
 services:
   postgres:
-    container_name: postgres_playr
+    container_name: postgres_dogoo
     image: postgres
     environment:
       POSTGRES_USER: "test"
       POSTGRES_PASSWORD: "test"
-      POSTGRES_DB: "playr"
+      POSTGRES_DB: "dogoo"
     volumes:
       - postgres:/data/postgres
     ports:
@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
 
   pgadmin:
-    container_name: pgadmin_playr
+    container_name: pgadmin_dogoo
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: 123@test.pl
