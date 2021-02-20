@@ -6,9 +6,6 @@ class Users {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'usr_name' })
-  name: string;
-
   @Column({ name: 'usr_email' })
   email: string;
 
