@@ -3,45 +3,50 @@
     <label>Login</label>
     <input placeholder="Tu wpisz login" v-model="login" type="text" />
     <label>Hasło</label>
-    <input placeholder="Tu wpisz hasło" v-model="password" type="password"/>
-    <label id="wrong-password">Podales błędne dane</label>
+    <input placeholder="Tu wpisz hasło" v-model="password" type="password" />
+    <label v-show="isWrongDataProvided">Wypełnij wszystkie pola!</label>
     <button @click="handleFormSubmit()" type="submit">Zarejestruj się</button>
   </div>
 </template>
 
 <script>
-import { isEmpty } from '../../scripts/Core';
+import { isEmpty } from "../../scripts/Core";
 
 export default {
   name: "SignUp",
   data() {
     return {
       login: "",
-      password: ""
+      password: "",
+      isWrongDataProvided: false,
     };
   },
   methods: {
-    handleChangeInputs() {
-      if(!isEmpty(this.login) || !isEmpty(this.password)){
-        document.getElementById('wrong-password').style.visibility = 'visible';
-      }else{
-        document.getElementById('wrong-password').style.visibility = 'hidden';
+    checkIsEmpty() {
+      if (isEmpty(this.login) || isEmpty(this.password)) {
+        this.isWrongDataProvided = true;
+      } else {
+        this.isWrongDataProvided = false;
       }
+      return this.isWrongDataProvided;
+    },
+    handleChangeInputs() {
+      this.checkIsEmpty();
     },
 
-    handleFormSubmit(){
-      //CHECK DATA AND DO STH
-    }
+    handleFormSubmit() {
+      this.checkIsEmpty();
+    },
   },
 
   watch: {
-    login(){
-      this.handleChangeInputs()
+    login() {
+      this.handleChangeInputs();
     },
-    password(){
-      this.handleChangeInputs()
+    password() {
+      this.handleChangeInputs();
     },
-  }
+  },
 };
 </script>
 
@@ -53,7 +58,7 @@ button {
   margin: 0 auto;
 }
 
-#wrong-password{
+#wrong-password {
   visibility: hidden;
 }
 </style>
