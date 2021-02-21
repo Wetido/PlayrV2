@@ -79,7 +79,7 @@ export default {
     align-items: flex-start;
     width: 75%;
     margin: 2em;
-    margin-top: 3.5em;
+    margin-top: 5em;
   }
 }
 .form-label {
@@ -129,7 +129,7 @@ export default {
   position: absolute;
   top: 15px;
   left: 15px;
-  font-size: 36;
+  font-size: 36px;
   font-weight: 300;
 }
 </style>
