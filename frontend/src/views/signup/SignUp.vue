@@ -5,12 +5,18 @@
       <div class="form">
         <label class="form-label">New login:</label>
         <input class="form-input" v-model="login" type="text" />
+
+        <label class="form-label">email:</label>
+        <input class="form-input" v-model="email" type="text" />
+
         <label class="form-label">New password:</label>
         <input class="form-input" v-model="password" type="password" />
+
         <label class="form-label">Confirm password:</label>
         <input class="form-input" v-model="passwordConfirm" type="password" />
+
         <label class="wrongData-alert" v-show="isWrongDataProvided"
-          >We need data to register you :)</label
+          >we need correct data to register you!</label
         >
         <div class="buttons-container">
           <button class="default-button signin-button">Sign in</button>
@@ -30,20 +36,31 @@
 
 <script>
 import { isEmpty } from "../../scripts/Core";
-
 export default {
   name: "SignUp",
   data() {
     return {
       login: "",
+      email: "",
       password: "",
       passwordConfirm: "",
       isWrongDataProvided: false,
     };
   },
   methods: {
+    confirmPassword() {
+      if (this.password === this.passwordConfirm) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     checkIsEmpty() {
-      if (isEmpty(this.login) || isEmpty(this.password)) {
+      if (
+        isEmpty(this.login) ||
+        isEmpty(this.password) ||
+        isEmpty(this.email)
+      ) {
         this.isWrongDataProvided = true;
       } else {
         this.isWrongDataProvided = false;
@@ -53,9 +70,19 @@ export default {
     handleChangeInputs() {
       this.checkIsEmpty();
     },
-
     handleFormSubmit() {
       this.checkIsEmpty();
+      if (this.confirmPassword() === true) {
+        this.$store
+          .dispatch("register", {
+            login: this.login,
+            password: this.password,
+            email: this.email,
+          })
+          .then((response) => console.log(response));
+      } else {
+        this.isWrongDataProvided = true;
+      }
     },
   },
 
@@ -64,6 +91,9 @@ export default {
       this.handleChangeInputs();
     },
     password() {
+      this.handleChangeInputs();
+    },
+    email() {
       this.handleChangeInputs();
     },
   },
@@ -123,7 +153,9 @@ export default {
   background-color: #c96f6f;
   color: white;
 }
-
+.buttons-container {
+  height: 30px;
+}
 /* rest of left collumn */
 .corner-title {
   position: absolute;
