@@ -1,34 +1,25 @@
 <template>
   <div class="grid-container">
     <div class="left-column">
-      <span class="corner-title">Sign Up</span>
+      <span class="corner-title">Sign in</span>
       <div class="form">
-        <label class="form-label">New login:</label>
-        <input class="form-input" v-model="login" type="text" />
-
         <label class="form-label">email:</label>
-        <input class="form-input" v-model="email" type="text" />
-
-        <label class="form-label">New password:</label>
+        <input class="form-input" v-model="login" type="text" />
+        <label class="form-label">password:</label>
         <input class="form-input" v-model="password" type="password" />
-
-        <label class="form-label">Confirm password:</label>
-        <input class="form-input" v-model="passwordConfirm" type="password" />
-
         <label class="wrongData-alert" v-show="isWrongDataProvided"
-          >we need correct data to register you!</label
+          >we need correct data to sign you in!</label
         >
-
         <div class="buttons-container">
-          <router-link to="signin">
-            <button class="default-button signin-button">Sign in</button>
+          <router-link to="/signup">
+            <button class="default-button signin-button">Register</button>
           </router-link>
           <button
             class="submit-button default-button"
             @click="handleFormSubmit()"
             type="submit"
           >
-            Register
+            Sign in
           </button>
         </div>
       </div>
@@ -40,30 +31,17 @@
 <script>
 import { isEmpty } from "../../scripts/Core";
 export default {
-  name: "SignUp",
+  name: "SignIn",
   data() {
     return {
-      login: "",
       email: "",
       password: "",
-      passwordConfirm: "",
       isWrongDataProvided: false,
     };
   },
   methods: {
-    confirmPassword() {
-      if (this.password === this.passwordConfirm) {
-        return true;
-      } else {
-        return false;
-      }
-    },
     checkIsEmpty() {
-      if (
-        isEmpty(this.login) ||
-        isEmpty(this.password) ||
-        isEmpty(this.email)
-      ) {
+      if (isEmpty(this.login) || isEmpty(this.email)) {
         this.isWrongDataProvided = true;
       } else {
         this.isWrongDataProvided = false;
@@ -75,17 +53,9 @@ export default {
     },
     handleFormSubmit() {
       this.checkIsEmpty();
-      if (this.confirmPassword() === true) {
-        this.$store
-          .dispatch("register", {
-            login: this.login,
-            password: this.password,
-            email: this.email,
-          })
-          .then((response) => console.log(response));
-      } else {
-        this.isWrongDataProvided = true;
-      }
+      this.$store
+        .dispatch("login", { email: this.email, password: this.password })
+        .then((response) => console.log(response));
     },
   },
 
