@@ -12,7 +12,7 @@ export const register = ({ commit }, userData) => {
     axios
       .post(`${BACKEND_URL}/${ROUTES.signUp}`, userData)
       .then(response => {
-        commit("auth_register_success");
+        commit("auth_success");
         resolve(response);
       })
       .catch(err => {
@@ -28,7 +28,7 @@ export const login = ({ commit }, userData) => {
     axios
       .post(`${BACKEND_URL}/${ROUTES.login}`, userData)
       .then(({ data: token }) => {
-        commit("auth_login_success", token);
+        commit("auth_success", token);
         resolve(token);
       })
       .catch(err => {
