@@ -7,6 +7,8 @@
         <input class="form-input" v-model="login" type="text" />
         <label class="form-label">New password:</label>
         <input class="form-input" v-model="password" type="password" />
+        <label class="form-label">Confirm password:</label>
+        <input class="form-input" v-model="passwordConfirm" type="password" />
         <label class="wrongData-alert" v-show="isWrongDataProvided"
           >We need data to register you :)</label
         >
@@ -35,6 +37,7 @@ export default {
     return {
       login: "",
       password: "",
+      passwordConfirm: "",
       isWrongDataProvided: false,
     };
   },
