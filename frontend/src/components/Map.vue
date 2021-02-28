@@ -1,31 +1,30 @@
 <template>
-  <div id="mapContainer"></div>
+    <div id="app" style="height: 100%">
+        <v-map :zoom="zoom" :center="center">
+            <v-tilelayer :url="url" :attribution="attribution"></v-tilelayer>
+            <v-marker :lat-lng="marker"></v-marker>
+        </v-map>
+    </div>
 </template>
 
 <script>
-import "leaflet/dist/leaflet.css";
-import L from "leaflet";
-export default {
-  name: "Map",
-  data() {
-    return {
-      center: [38.63, -90.23],
-    };
-  },
-  methods: {
-    setupLeafletMap: function () {
-      L.map("mapContainer").setView(this.center, 13);
+  import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
+  import L from 'leaflet';
+  
+  export default {
+    data() {
+      return {
+        zoom: 16,
+        center: [52.2254565157299, 20.94993149981223],
+        url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        marker: L.latLng(30.2792953, 120.1198430)
+      }
     },
-  },
-  mounted() {
-    this.setupLeafletMap();
-  },
-};
+    components: {
+      'v-map': LMap,
+      'v-tilelayer': LTileLayer,
+      'v-marker': LMarker
+    }
+  }
 </script>
-
-<style>
-#mapContainer {
-  width: 80vw;
-  height: 100vh;
-}
-</style>
