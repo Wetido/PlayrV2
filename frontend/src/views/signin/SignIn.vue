@@ -12,7 +12,7 @@
         >
         <div class="buttons-container">
           <router-link to="/signup">
-            <button class="default-button signin-button">Register</button>
+            <button class="default-button signup-button">Register</button>
           </router-link>
           <button
             class="submit-button default-button"
@@ -24,12 +24,17 @@
         </div>
       </div>
     </div>
-    <div class="right-column"></div>
+    <div class="right-column">
+      <Map>
+
+      </Map>
+    </div>
   </div>
 </template>
 
 <script>
 import { isEmpty } from "../../scripts/Core";
+import Map from '../../components/Map'
 export default {
   name: "SignIn",
   data() {
@@ -58,7 +63,9 @@ export default {
         .then((response) => console.log(response));
     },
   },
-
+  components: {
+    Map: Map
+  },
   watch: {
     login() {
       this.handleChangeInputs();
@@ -117,7 +124,7 @@ export default {
   color: white;
   margin-left: 2em;
 }
-.signin-button {
+.signup-button {
   margin-top: 10px;
   height: 30px;
   width: 100px;

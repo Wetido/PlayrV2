@@ -42,7 +42,9 @@
     "parserOptions": {
       "ecmaVersion": 2020
     },
-    "rules": {}
+    "rules": {
+      "no-irregular-whitespace": 0
+    }
   },
   "browserslist": [
     "> 1%",
