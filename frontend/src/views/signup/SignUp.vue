@@ -33,14 +33,20 @@
         </div>
       </div>
     </div>
-    <div class="right-column"></div>
+    <div class="right-column">
+      <Map />
+    </div>
   </div>
 </template>
 
 <script>
 import { isEmpty } from "../../scripts/Core";
+import Map from '../../components/Map'
 export default {
   name: "SignUp",
+  components: {
+    Map
+  },
   data() {
     return {
       login: "",
