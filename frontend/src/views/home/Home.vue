@@ -3,7 +3,7 @@
     <div v-show="isLoged" class="grid-container">
       <div class="left-column"></div>
       <div class="right-column">
-        <Map></Map>
+        <Map :location="center"></Map>
       </div>
     </div>
     <di v-show="isLoged === false">
@@ -25,17 +25,32 @@ export default {
   name: "Home",
   data() {
     return {
-      isLoged: false,
+      isLoged: true,
+      center: []
     };
   },
   components: {
-    Map,
+    Map
+  },
+  methods: {
+    successPosition(position) {
+      if(position){
+        this.center = [position.coords.latitude, position.coords.longitude]
+      }else{
+        alert("Twoja przeglądarka może nie wspierać przechwytywania lokalizacji")
+      }
+    }
   },
   beforeCreate() {
     if (this.$store.authStatus === "success") {
       this.isLoged = true;
     }
   },
+  mounted() {
+    if ((this.isLoged)) {
+      navigator.geolocation.getCurrentPosition(this.successPosition);
+    }
+  }
 };
 </script>
 <style scoped>

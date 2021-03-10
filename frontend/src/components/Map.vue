@@ -12,10 +12,10 @@
   import L from 'leaflet';
   
   export default {
+    props: ["location"],
     data() {
       return {
         zoom: 16,
-        center: [52.2254565157299, 20.94993149981223],
         url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         marker: L.latLng(30.2792953, 120.1198430)
@@ -25,6 +25,12 @@
       'v-map': LMap,
       'v-tilelayer': LTileLayer,
       'v-marker': LMarker
+    },
+    mounted(){
+      this.$watch('location', location => {
+        this.center = location;
+        this.$forceUpdate();
+      })
     }
   }
 </script>
