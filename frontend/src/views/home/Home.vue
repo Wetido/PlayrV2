@@ -6,14 +6,14 @@
         <Map :location="center"></Map>
       </div>
     </div>
-    <di v-show="isLoged === false">
+    <div v-show="!isLoged">
       <h1>Musisz się zalogować!</h1>
       <router-link to="/signin">
         <button class="default-button login-redirect-button">
           Przejdź do logowania
         </button>
       </router-link>
-    </di>
+    </div>
   </div>
 </template>
 
@@ -29,28 +29,17 @@ export default {
       center: []
     };
   },
+
   components: {
     Map
   },
-  methods: {
-    successPosition(position) {
-      if(position){
-        this.center = [position.coords.latitude, position.coords.longitude]
-      }else{
-        alert("Twoja przeglądarka może nie wspierać przechwytywania lokalizacji")
-      }
-    }
-  },
+
   beforeCreate() {
-    if (this.$store.authStatus === "success") {
+    if (this.$store.getters.getAuthStatus === "success") {
       this.isLoged = true;
     }
   },
-  mounted() {
-    if ((this.isLoged)) {
-      navigator.geolocation.getCurrentPosition(this.successPosition);
-    }
-  }
+
 };
 </script>
 <style scoped>

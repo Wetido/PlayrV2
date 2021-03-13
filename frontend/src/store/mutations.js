@@ -17,3 +17,8 @@ export const auth_success = (state, token = "") => {
   state.authStatus = AUTH_STATUS.success;
   state.token = token;
 };
+
+export function mutateCurrentPosition(state, payload){
+  state.currentPosition = payload;
+}
+

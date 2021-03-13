@@ -37,3 +37,26 @@ export const login = ({ commit }, userData) => {
       });
   });
 };
+
+export async function actionCurrentPosition({commit}){
+
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 10000,
+    maximumAge: 0,
+  };
+
+  const success = (pos) => {
+    var crd = pos.coords;
+    commit('mutateCurrentPosition', crd)
+  }
+
+  const error = (err) => {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+
+  await navigator.geolocation.getCurrentPosition(success, error, options);
+}
+
+
+
