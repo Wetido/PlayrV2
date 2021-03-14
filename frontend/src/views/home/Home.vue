@@ -34,6 +34,13 @@ export default {
     Map
   },
 
+  mounted() {
+    const socket = new WebSocket('ws://localhost:8010');
+    socket.onopen = () => {
+      console.log('lacze');
+    }
+  },
+
   beforeCreate() {
     if (this.$store.getters.getAuthStatus === "success") {
       this.isLoged = true;
