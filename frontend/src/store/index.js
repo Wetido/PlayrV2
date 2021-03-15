@@ -1,32 +1,33 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { login, register, actionCurrentPosition } from "./actions";
-import { auth_err, auth_req, auth_success, mutateCurrentPosition } from "./mutations";
+import { actionCurrentPosition, actionAuthSuccess } from "./actions";
+import { mutateCurrentPosition, mutateAuthSuccess } from "./mutations";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    token: "",
-    authStatus: "",
+    userId: 0,
+    userHash: '',
+    token: '',
+    authStatus: '',
     currentPosition: null,
-
   },
+
   mutations: {
-    auth_err,
-    auth_req,
-    auth_success,
+    mutateAuthSuccess,
     mutateCurrentPosition,
   },
+
   actions: {
-    register,
-    login,
+    actionAuthSuccess,
     actionCurrentPosition
   },
 
   modules: {},
 
   getters: {
+    getUserId: state => state.userId,
     getToken: state => state.token,
     getAuthStatus: state => state.authStatus,
     getCurrentPosition: state => state.currentPosition,

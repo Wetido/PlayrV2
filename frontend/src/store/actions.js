@@ -1,42 +1,23 @@
-import axios from "axios";
 
-const BACKEND_URL = "http://localhost:5000";
-const ROUTES = {
-  login: "auth/login",
-  signUp: "auth/signUp"
-};
+// export const register = ({ commit }, userData) => {
+//   return new Promise((resolve, reject) => {
+//     commit("auth_req");
+//     axios
+//       .post(`${BACKEND_URL}/${ROUTES.SIGNUP}`, userData)
+//       .then(response => {
+//         commit("auth_success");
+//         resolve(response);
+//       })
+//       .catch(err => {
+//         commit("auth_err");
+//         reject(err);
+//       });
+//   });
+// };
 
-export const register = ({ commit }, userData) => {
-  return new Promise((resolve, reject) => {
-    commit("auth_req");
-    axios
-      .post(`${BACKEND_URL}/${ROUTES.signUp}`, userData)
-      .then(response => {
-        commit("auth_success");
-        resolve(response);
-      })
-      .catch(err => {
-        commit("auth_err");
-        reject(err);
-      });
-  });
-};
-
-export const login = ({ commit }, userData) => {
-  return new Promise((resolve, reject) => {
-    commit("auth_req");
-    axios
-      .post(`${BACKEND_URL}/${ROUTES.login}`, userData)
-      .then(({ data: token }) => {
-        commit("auth_success", token);
-        resolve(token);
-      })
-      .catch(err => {
-        commit("auth_err");
-        reject(err);
-      });
-  });
-};
+export function actionAuthSuccess({commit}, payload){
+  commit('mutateAuthSuccess', payload);
+}
 
 export async function actionCurrentPosition({commit}){
 

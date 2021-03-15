@@ -14,7 +14,6 @@ export class WebSocket implements OnGatewayConnection {
 
     handleConnection(client){
         this.connections['1'] = client;
-        console.log(this.connections);
         client.emit('connection', 'succesful');
     }
 }

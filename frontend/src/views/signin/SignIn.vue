@@ -4,12 +4,11 @@
       <span class="corner-title">Sign in</span>
       <div class="form">
         <label class="form-label">email:</label>
-        <input class="form-input" v-model="login" type="text" />
+        <input class="form-input" v-model="email" type="text"/>
         <label class="form-label">password:</label>
-        <input class="form-input" v-model="password" type="password" />
-        <label class="wrongData-alert" v-show="isWrongDataProvided"
-          >we need correct data to sign you in!</label
-        >
+        <input class="form-input" v-model="password" type="password"/>
+        <label class="wrongData-alert" v-show="isWrongDataProvided">
+          we need correct data to sign you in!</label>
         <div class="buttons-container">
           <router-link to="/signup">
             <button class="default-button signup-button">Register</button>
@@ -25,16 +24,17 @@
       </div>
     </div>
     <div class="right-column">
-      <Map>
-
-      </Map>
+      <Map></Map>
     </div>
   </div>
 </template>
 
 <script>
-import { isEmpty } from "../../scripts/Core";
+import {isEmpty} from "../../scripts/Core";
 import Map from '../../components/Map'
+import axios from "axios";
+import {BACKEND_URL, ROUTES} from "@/consts/routes";
+
 export default {
   name: "SignIn",
   data() {
@@ -45,22 +45,28 @@ export default {
     };
   },
   methods: {
-    checkIsEmpty() {
-      if (isEmpty(this.login) || isEmpty(this.email)) {
-        this.isWrongDataProvided = true;
-      } else {
-        this.isWrongDataProvided = false;
-      }
-      return this.isWrongDataProvided;
+    checkLoginDataEmptyNotEmpty() {
+      return !(isEmpty(this.email) || isEmpty(this.password));
     },
+
     handleChangeInputs() {
-      this.checkIsEmpty();
+      this.checkLoginDataEmptyNotEmpty();
     },
-    handleFormSubmit() {
-      this.checkIsEmpty();
-      this.$store
-        .dispatch("login", { email: this.email, password: this.password })
-        .then((response) => console.log(response));
+
+    async handleFormSubmit() {
+
+      if (this.checkLoginDataEmptyNotEmpty()) {
+
+        try{
+          const response = await axios.post(`${BACKEND_URL}/${ROUTES.LOGIN}`,
+            {email: this.email, password: this.password})
+
+          this.$store.dispatch('actionAuthSuccess', response.data)
+        }catch(error){
+          window.alert('Blad logowania');
+        }
+      }
+
     },
   },
   components: {
@@ -92,12 +98,14 @@ export default {
     margin-top: 5em;
   }
 }
+
 .form-label {
   color: #8d8d8d;
   font-size: 12px;
   margin-right: auto;
   margin-top: 10px;
 }
+
 .form-input {
   width: 95%;
   border-radius: 6px;
@@ -114,6 +122,7 @@ export default {
   color: #c96f6f;
   font-size: 14px;
 }
+
 .submit-button {
   margin-top: 10px;
   height: 30px;
@@ -124,6 +133,7 @@ export default {
   color: white;
   margin-left: 2em;
 }
+
 .signup-button {
   margin-top: 10px;
   height: 30px;
@@ -133,9 +143,11 @@ export default {
   background-color: #c96f6f;
   color: white;
 }
+
 .buttons-container {
   height: 30px;
 }
+
 /* rest of left collumn */
 .corner-title {
   position: absolute;
