@@ -15,7 +15,7 @@
         <label class="form-label">Confirm password:</label>
         <input class="form-input" v-model="passwordConfirm" type="password" />
 
-        <label class="wrongData-alert" v-show="isWrongDataProvided"
+        <label class="wrongData-alert" v-if="isWrongDataProvided"
           >we need correct data to register you!</label
         >
 
@@ -42,6 +42,10 @@
 <script>
 import { isEmpty } from "../../scripts/Core";
 import Map from '../../components/Map'
+import axios from "axios";
+import {BACKEND_URL, ROUTES} from "@/consts/routes";
+import {LOCATIONS} from "@/consts/locations";
+
 export default {
   name: "SignUp",
   components: {
@@ -53,44 +57,38 @@ export default {
       email: "",
       password: "",
       passwordConfirm: "",
-      isWrongDataProvided: false,
+      isWrongDataProvided: true,
     };
   },
   methods: {
+
     confirmPassword() {
-      if (this.password === this.passwordConfirm) {
-        return true;
-      } else {
-        return false;
-      }
+      this.isWrongDataProvided = this.password !== this.passwordConfirm;
     },
+
     checkIsEmpty() {
-      if (
-        isEmpty(this.login) ||
-        isEmpty(this.password) ||
-        isEmpty(this.email)
-      ) {
-        this.isWrongDataProvided = true;
-      } else {
-        this.isWrongDataProvided = false;
-      }
-      return this.isWrongDataProvided;
+      this.isWrongDataProvided = (isEmpty(this.login) || isEmpty(this.password) || isEmpty(this.email));
     },
+
     handleChangeInputs() {
       this.checkIsEmpty();
     },
-    handleFormSubmit() {
-      this.checkIsEmpty();
-      if (this.confirmPassword() === true) {
-        this.$store
-          .dispatch("register", {
-            login: this.login,
-            password: this.password,
-            email: this.email,
-          })
-          .then((response) => console.log(response));
-      } else {
-        this.isWrongDataProvided = true;
+
+    async handleFormSubmit() {
+      if(!this.isWrongDataProvided){
+        const userData = {
+          login: this.login,
+          password: this.password,
+          email: this.email,
+        }
+        try{
+          await axios.post(`${BACKEND_URL}/${ROUTES.SIGNUP}`, userData);
+          window.alert('Pomyślnie zarejestrowano');
+          window.location = LOCATIONS.SIGNIN;
+        }catch (e){
+          window.alert('Użytkownik już istnieje');
+          console.log(e);
+        }
       }
     },
   },
@@ -101,6 +99,9 @@ export default {
     },
     password() {
       this.handleChangeInputs();
+    },
+    passwordConfirm() {
+      this.confirmPassword()
     },
     email() {
       this.handleChangeInputs();

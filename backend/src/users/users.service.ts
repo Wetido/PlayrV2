@@ -18,25 +18,30 @@ export class UsersService {
     }
 
     async signUp(authRegister: any): Promise<Users> {
-        try {
+
             const users = new Users();
 
-            users.email = authRegister.email;
-            users.createdAt = new Date();
-            users.isDeleted = false;
-            users.password = await this.authService.hashPassword(
-                authRegister.password,
-            );
-            users.userHash = await this.authService.hashPassword(authRegister.email);
+            if(!isUndefined(await this.findByMail(authRegister.email))){
+                throw new HttpException('email existed', HttpStatus.CONFLICT);
+            }
 
-            const response = await this.usersRepository.save(users);
+            try{
+                users.email = authRegister.email;
+                users.createdAt = new Date();
+                users.isDeleted = false;
+                users.password = await this.authService.hashPassword(
+                    authRegister.password,
+                );
+                users.userHash = await this.authService.hashPassword(authRegister.email);
 
-            authRegister.password = null;
+                const response = await this.usersRepository.save(users);
 
-            return response;
-        } catch (e) {
-            return null;
-        }
+                authRegister.password = null;
+
+                return response;
+            }catch (e){
+                throw new Error(e);
+            }
     }
 
     async logIn(loginRegister: any): Promise<string> {
@@ -63,7 +68,7 @@ export class UsersService {
 
             return stringify(obj);
         }else{
-            throw new HttpException('wrong data provided', HttpStatus.BAD_REQUEST);
+            throw new HttpException('wrong data provided', HttpStatus.NOT_ACCEPTABLE);
         }
     }
 

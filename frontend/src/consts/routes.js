@@ -5,7 +5,5 @@ export const ROUTES = {
 }
 
 export const AUTH_STATUS = {
-  LOADING: "loading",
   SUCCESS: "success",
-  ERROR: "error"
 };
