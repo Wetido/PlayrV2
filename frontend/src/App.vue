@@ -2,10 +2,10 @@
   <div id="app">
     <div id="nav">
       <p>Robocza nawigacja</p>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
+      <router-link to="/">Home</router-link> | <router-link to="/about">About</router-link> |
       <router-link to="/signup">Sign up</router-link> |
-      <router-link to="/signin">Sign in</router-link> | 
+      <router-link to="/signin">Sign in</router-link> |
+      <router-link to="/editpersonaldata">editpersonaldata</router-link> |
     </div>
     <router-view />
   </div>
@@ -60,5 +60,57 @@ body {
 }
 .default-button:active {
   box-shadow: 0px 1px 1px 0px rgba(50, 50, 50, 0.75);
+}
+.form-label {
+  color: #8d8d8d;
+  font-size: 12px;
+  margin-right: auto;
+  margin-top: 10px;
+}
+
+.form-input {
+  width: 95%;
+  border-radius: 6px;
+  outline: none;
+  border: none;
+  background-color: #f3f3f3;
+  height: 31px;
+  margin-top: 5px;
+  font-family: "Montserrat", sans-serif;
+  padding-left: 5%;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 75%;
+  margin: 2em;
+  margin-top: 5em;
+}
+.submit-button {
+  margin-top: 10px;
+  height: 30px;
+  width: 100px;
+  display: inline-block;
+  transition: all 0.2s;
+  background-color: #31c8b6;
+  color: white;
+  margin-left: 2em;
+}
+.corner-title {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 36px;
+  font-weight: 300;
+}
+.negative-button {
+  margin-top: 10px;
+  height: 30px;
+  width: 100px;
+  display: inline-block;
+  transition: all 0.2s;
+  background-color: #c96f6f;
+  color: white;
 }
 </style>

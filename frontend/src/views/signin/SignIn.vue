@@ -4,20 +4,17 @@
       <span class="corner-title">Sign in</span>
       <div class="form">
         <label class="form-label">email:</label>
-        <input class="form-input" v-model="email" type="text"/>
+        <input class="form-input" v-model="email" type="text" />
         <label class="form-label">password:</label>
-        <input class="form-input" v-model="password" type="password"/>
+        <input class="form-input" v-model="password" type="password" />
         <label class="wrongData-alert" v-show="isWrongDataProvided">
-          we need correct data to sign you in!</label>
+          we need correct data to sign you in!</label
+        >
         <div class="buttons-container">
           <router-link to="/signup">
             <button class="default-button signup-button">Register</button>
           </router-link>
-          <button
-            class="submit-button default-button"
-            @click="handleFormSubmit()"
-            type="submit"
-          >
+          <button class="submit-button default-button" @click="handleFormSubmit()" type="submit">
             Sign in
           </button>
         </div>
@@ -30,10 +27,10 @@
 </template>
 
 <script>
-import {isEmpty} from "../../scripts/Core";
-import Map from '../../components/Map'
+import { isEmpty } from "../../scripts/Core";
+import Map from "../../components/Map";
 import axios from "axios";
-import {BACKEND_URL, ROUTES} from "@/consts/routes";
+import { BACKEND_URL, ROUTES } from "@/consts/routes";
 
 export default {
   name: "SignIn",
@@ -41,7 +38,7 @@ export default {
     return {
       email: "",
       password: "",
-      isWrongDataProvided: false,
+      isWrongDataProvided: false
     };
   },
   methods: {
@@ -54,20 +51,19 @@ export default {
     },
 
     async handleFormSubmit() {
-
       if (this.checkLoginDataEmptyNotEmpty()) {
+        try {
+          const response = await axios.post(`${BACKEND_URL}/${ROUTES.LOGIN}`, {
+            email: this.email,
+            password: this.password
+          });
 
-        try{
-          const response = await axios.post(`${BACKEND_URL}/${ROUTES.LOGIN}`,
-            {email: this.email, password: this.password})
-
-          this.$store.dispatch('actionAuthSuccess', response.data)
-        }catch(error){
-          window.alert('Blad logowania');
+          this.$store.dispatch("actionAuthSuccess", response.data);
+        } catch (error) {
+          window.alert("Blad logowania");
         }
       }
-
-    },
+    }
   },
   components: {
     Map: Map
@@ -81,8 +77,8 @@ export default {
     },
     email() {
       this.handleChangeInputs();
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -98,26 +94,6 @@ export default {
     margin-top: 5em;
   }
 }
-
-.form-label {
-  color: #8d8d8d;
-  font-size: 12px;
-  margin-right: auto;
-  margin-top: 10px;
-}
-
-.form-input {
-  width: 95%;
-  border-radius: 6px;
-  outline: none;
-  border: none;
-  background-color: #f3f3f3;
-  height: 31px;
-  margin-top: 5px;
-  font-family: "Montserrat", sans-serif;
-  padding-left: 5%;
-}
-
 .wrongData-alert {
   color: #c96f6f;
   font-size: 14px;

@@ -7,37 +7,36 @@
       </div>
     </div>
     <div v-show="!isLoged">
-      <h1>Musisz się zalogować!</h1>
-      <router-link to="/signin">
-        <button class="default-button login-redirect-button">
-          Przejdź do logowania
-        </button>
-      </router-link>
+      <NotSignedIn />
     </div>
   </div>
 </template>
 
 <script>
 import Map from "../../components/Map";
+import NotSignedIn from "../../components/notSignedIn/NotSignedIn";
 import "leaflet/dist/leaflet.css";
 
 export default {
   name: "Home",
   data() {
     return {
-      isLoged: true,
+      isLoged: false,
       center: []
     };
   },
 
   components: {
-    Map
+    Map,
+    NotSignedIn
   },
 
   mounted() {
-    const socket = new WebSocket('ws://localhost:8010');
-    socket.onopen = () => {
-      console.log('lacze');
+    if (this.isLoged) {
+      const socket = new WebSocket("ws://localhost:8010");
+      socket.onopen = () => {
+        console.log("lacze");
+      };
     }
   },
 
@@ -45,14 +44,7 @@ export default {
     if (this.$store.getters.getAuthStatus === "success") {
       this.isLoged = true;
     }
-  },
-
+  }
 };
 </script>
-<style scoped>
-.login-redirect-button {
-  background-color: #31c8b6;
-  color: white;
-  padding: 8px;
-}
-</style>
+<style scoped></style>

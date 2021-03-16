@@ -5,6 +5,7 @@ import About from "../views/about/About.vue";
 import Signup from "../views/signup/SignUp.vue";
 import SignIn from "../views/signin/SignIn.vue";
 import Map from "../components/Map.vue";
+import EditPersonalData from "../views/editPersonalData/EditPersonalData"
 Vue.use(VueRouter);
 
 const routes = [
@@ -32,7 +33,12 @@ const routes = [
     path: "/map",
     name: "Map",
     component: Map
-  }
+  },
+  {
+    path: "/editpersonaldata",
+    name: "EditPersonalData",
+    component: EditPersonalData
+  },
 ];
 
 const router = new VueRouter({

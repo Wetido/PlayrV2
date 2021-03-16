@@ -21,13 +21,9 @@
 
         <div class="buttons-container">
           <router-link to="signin">
-            <button class="default-button signin-button">Sign in</button>
+            <button class="default-button negative-button">Sign in</button>
           </router-link>
-          <button
-            class="submit-button default-button"
-            @click="handleFormSubmit()"
-            type="submit"
-          >
+          <button class="submit-button default-button" @click="handleFormSubmit()" type="submit">
             Register
           </button>
         </div>
@@ -41,10 +37,10 @@
 
 <script>
 import { isEmpty } from "../../scripts/Core";
-import Map from '../../components/Map'
+import Map from "../../components/Map";
 import axios from "axios";
-import {BACKEND_URL, ROUTES} from "@/consts/routes";
-import {LOCATIONS} from "@/consts/locations";
+import { BACKEND_URL, ROUTES } from "@/consts/routes";
+import { LOCATIONS } from "@/consts/locations";
 
 export default {
   name: "SignUp",
@@ -57,17 +53,17 @@ export default {
       email: "",
       password: "",
       passwordConfirm: "",
-      isWrongDataProvided: true,
+      isWrongDataProvided: true
     };
   },
   methods: {
-
     confirmPassword() {
       this.isWrongDataProvided = this.password !== this.passwordConfirm;
     },
 
     checkIsEmpty() {
-      this.isWrongDataProvided = (isEmpty(this.login) || isEmpty(this.password) || isEmpty(this.email));
+      this.isWrongDataProvided =
+        isEmpty(this.login) || isEmpty(this.password) || isEmpty(this.email);
     },
 
     handleChangeInputs() {
@@ -75,22 +71,22 @@ export default {
     },
 
     async handleFormSubmit() {
-      if(!this.isWrongDataProvided){
+      if (!this.isWrongDataProvided) {
         const userData = {
           login: this.login,
           password: this.password,
-          email: this.email,
-        }
-        try{
+          email: this.email
+        };
+        try {
           await axios.post(`${BACKEND_URL}/${ROUTES.SIGNUP}`, userData);
-          window.alert('Pomyślnie zarejestrowano');
+          window.alert("Pomyślnie zarejestrowano");
           window.location = LOCATIONS.SIGNIN;
-        }catch (e){
-          window.alert('Użytkownik już istnieje');
+        } catch (e) {
+          window.alert("Użytkownik już istnieje");
           console.log(e);
         }
       }
-    },
+    }
   },
 
   watch: {
@@ -101,12 +97,12 @@ export default {
       this.handleChangeInputs();
     },
     passwordConfirm() {
-      this.confirmPassword()
+      this.confirmPassword();
     },
     email() {
       this.handleChangeInputs();
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -154,24 +150,7 @@ export default {
   color: white;
   margin-left: 2em;
 }
-.signin-button {
-  margin-top: 10px;
-  height: 30px;
-  width: 100px;
-  display: inline-block;
-  transition: all 0.2s;
-  background-color: #c96f6f;
-  color: white;
-}
 .buttons-container {
   height: 30px;
-}
-/* rest of left collumn */
-.corner-title {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  font-size: 36px;
-  font-weight: 300;
 }
 </style>
